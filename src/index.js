@@ -2,7 +2,7 @@
 import './pages/index.css';
 import {initialCards} from './scripts/cards';
 import {createCards, deleteCard, likeCard} from './components/card';
-import {openPopup} from './components/modal';
+import {openPopup, closePopup} from './components/modal';
 //DOM-узлы
 const placesList = document.querySelector('.places__list');
 // Попап редактирования профиля
@@ -14,7 +14,7 @@ const profileDes = document.querySelector('.profile__description');
 const inputProfileName = document.querySelector('.popup__input_type_name');
 const inputProfileDes = document.querySelector('.popup__input_type_description');
 // Попап добавления карточек
-const CardForm = document.querySelector('.popup__form[name="new-place"]');
+const cardForm = document.querySelector('.popup__form[name="new-place"]');
 const popupCard = document.querySelector('.popup_type_new-card');
 const popupCardButton = document.querySelector('.profile__add-button');
 const inputCardName = document.querySelector('.popup__input_type_card-name');
@@ -30,19 +30,19 @@ initialCards.forEach(function (card) {
 // Открытие формы для редактирования профиля
 popupProfileButton.addEventListener('click', function () {
   openPopup(popupProfile);
-  inputProfileName.placeholder = profileName.textContent;
-  inputProfileDes.placeholder = profileDes.textContent;
+  inputProfileName.value = profileName.textContent;
+  inputProfileDes.value = profileDes.textContent;
 });
 // Редактирование профиля
-function handleFormSubmit(evt) {
+function handleProfileSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileDes.textContent = inputProfileDes.value;
-  popupProfile.classList.remove('popup_is-opened');
+  closePopup(popupProfile);
   profileForm.reset();
 }
 // Сохранение данных в шапку профиля
-popupProfile.addEventListener('submit', handleFormSubmit);
+popupProfile.addEventListener('submit', handleProfileSubmit);
 
 // Открытие формы для добавления карточек
 popupCardButton.addEventListener('click', function () {
@@ -61,8 +61,8 @@ function handleCardSubmit(evt) {
     )
   );
 
-  popupCard.classList.remove('popup_is-opened');
-  CardForm.reset();
+  closePopup(popupCard);
+  cardForm.reset();
 }
 // Сохранение карточки
 popupCard.addEventListener('submit', handleCardSubmit);
