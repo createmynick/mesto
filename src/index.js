@@ -3,6 +3,7 @@ import './pages/index.css';
 import {initialCards} from './scripts/cards';
 import {createCards, deleteCard, likeCard} from './components/card';
 import {openPopup, closePopup} from './components/modal';
+import {clearValidation, enableValidation} from './components/validation';
 //DOM-узлы
 const placesList = document.querySelector('.places__list');
 // Попап редактирования профиля
@@ -23,6 +24,15 @@ const inputCardUrl = document.querySelector('.popup__input_type_url');
 const popupTypeImage = document.querySelector('.popup_type_image');
 const popupImage = document.querySelector('.popup__image');
 const popupImageTitle = document.querySelector('.popup__caption');
+// Параметры валидации
+const ValidationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 //Вывести карточки на страницу:
 initialCards.forEach(function (card) {
   placesList.append(createCards(card, deleteCard, likeCard, clickImage));
@@ -32,6 +42,7 @@ popupProfileButton.addEventListener('click', function () {
   openPopup(popupProfile);
   inputProfileName.value = profileName.textContent;
   inputProfileDes.value = profileDes.textContent;
+  clearValidation(popupProfile, ValidationConfig);
 });
 // Редактирование профиля
 function handleProfileSubmit(evt) {
@@ -47,6 +58,7 @@ popupProfile.addEventListener('submit', handleProfileSubmit);
 // Открытие формы для добавления карточек
 popupCardButton.addEventListener('click', function () {
   openPopup(popupCard);
+  clearValidation(popupCard, ValidationConfig);
 });
 // Добавление карточки
 function handleCardSubmit(evt) {
@@ -79,3 +91,5 @@ function clickImage(evt) {
 
   openPopup(popupTypeImage);
 }
+
+enableValidation(ValidationConfig);
