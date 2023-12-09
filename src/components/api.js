@@ -1,7 +1,7 @@
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/wff-cohort-1',
   headers: {
-    Authorization: 'b5b6ac8e-23df-438b-8512-065693a0b9d6',
+    authorization: 'b5b6ac8e-23df-438b-8512-065693a0b9d6',
     'Content-Type': 'application/json'
   }
 };
@@ -13,6 +13,7 @@ function handleResponse(res) {
     return Promise.reject(`Error: ${res.status} ${res.statusText}`);
   }
 }
+
 export function getProfileDataApi() {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'GET',
@@ -69,7 +70,6 @@ export function deleteLikeCardApi(card) {
     headers: config.headers
   }).then(handleResponse);
 }
-
 export function patchProfileAvatarApi(url) {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
