@@ -1,0 +1,6 @@
+@import url('./-button/card__like-button.css');
+.card__like {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
