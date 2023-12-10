@@ -1,3 +1,7 @@
+const disableSubmitButton = (buttonElement, validationConfig) => {
+  buttonElement.classList.add(validationConfig.inactiveButtonClass);
+  buttonElement.disabled = true;
+};
 function showInputError(form, input, errorMessage, validationConfig) {
   input.classList.add(validationConfig.inputErrorClass);
 
@@ -33,8 +37,7 @@ function hasInvalidInput(inputList) {
 }
 function toggleButtonState(inputList, buttonElement, validationConfig) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add(validationConfig.inactiveButtonClass);
+    disableSubmitButton(buttonElement, validationConfig);
   } else {
     buttonElement.disabled = false;
     buttonElement.classList.remove(validationConfig.inactiveButtonClass);
@@ -68,5 +71,5 @@ export function clearValidation(form, validationConfig) {
     hideInputError(form, inputElement, validationConfig);
   });
 
-  buttonElement.classList.add(validationConfig.inactiveButtonClass);
+  disableSubmitButton(buttonElement, validationConfig);
 }
